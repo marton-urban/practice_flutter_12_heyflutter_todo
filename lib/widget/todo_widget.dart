@@ -59,10 +59,8 @@ class TodoWidget extends StatelessWidget {
                 checkColor: Colors.white,
                 value: todo.isDone,
                 onChanged: (_) {
-                  final provider =
-                      Provider.of<TodosProvider>(context, listen: false);
-                  final isDone = provider.toggleTodoStatus(todo);
-
+                  final isDone =
+                      context.read<TodosProvider>().toggleTodoStatus(todo);
                   Utils.showSnackBar(
                     context,
                     isDone ? 'Task completed' : 'Task marked incomplete',
@@ -99,9 +97,7 @@ class TodoWidget extends StatelessWidget {
       );
 
   void deleteTodo(BuildContext context, Todo todo) {
-    final provider = Provider.of<TodosProvider>(context, listen: false);
-    provider.removeTodo(todo);
-
+    context.read<TodosProvider>().removeTodo(todo);
     Utils.showSnackBar(context, 'Deleted the task');
   }
 
