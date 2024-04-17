@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         onPressed: () => showDialog(
           context: context,
           builder: (context) => const AddTodoDialogWidget(),
