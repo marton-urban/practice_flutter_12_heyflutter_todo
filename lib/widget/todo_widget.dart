@@ -21,7 +21,6 @@ class TodoWidget extends StatelessWidget {
           key: const Key('todo.id'),
           startActionPane: ActionPane(
             motion: const ScrollMotion(),
-            dismissible: DismissiblePane(onDismissed: () {}),
             children: [
               SlidableAction(
                 onPressed: (context) => editTodo(context, todo),
