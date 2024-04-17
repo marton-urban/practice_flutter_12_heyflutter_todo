@@ -35,10 +35,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
-                final provider =
-                    Provider.of<TodosProvider>(context, listen: false);
-                provider.removeTodo(widget.todo);
-
+                context.read<TodosProvider>().removeTodo(widget.todo);
                 Navigator.of(context).pop();
               },
             )
@@ -66,10 +63,7 @@ class _EditTodoPageState extends State<EditTodoPage> {
     if (!isValid) {
       return;
     } else {
-      final provider = Provider.of<TodosProvider>(context, listen: false);
-
-      provider.updateTodo(widget.todo, title, description);
-
+      context.read<TodosProvider>().updateTodo(widget.todo, title, description);
       Navigator.of(context).pop();
     }
   }
