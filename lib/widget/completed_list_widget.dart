@@ -8,8 +8,7 @@ class CompletedListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<TodosProvider>(context);
-    final todos = provider.todosCompleted;
+    final todos = context.watch<TodosProvider>().todosCompleted;
 
     return todos.isEmpty
         ? const Center(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/model/todo.dart';
+import '/utils.dart';
 
 class TodosProvider extends ChangeNotifier {
   final List<Todo> _todos = [
@@ -38,17 +39,20 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeTodo(Todo todo) {
+  void removeTodo(BuildContext context, Todo todo, {bool pop = false}) {
     _todos.remove(todo);
-
     notifyListeners();
+    if (pop) Navigator.of(context).pop();
+    Utils.showSnackBar(context, 'Deleted the task');
   }
 
-  bool toggleTodoStatus(Todo todo) {
+  void toggleTodoStatus(BuildContext context, Todo todo) {
     todo.isDone = !todo.isDone;
     notifyListeners();
-
-    return todo.isDone;
+    Utils.showSnackBar(
+      context,
+      todo.isDone ? 'Task completed' : 'Task marked incomplete',
+    );
   }
 
   void updateTodo(Todo todo, String title, String description) {

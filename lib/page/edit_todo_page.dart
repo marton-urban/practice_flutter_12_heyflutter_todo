@@ -34,10 +34,9 @@ class _EditTodoPageState extends State<EditTodoPage> {
           actions: [
             IconButton(
               icon: const Icon(Icons.delete),
-              onPressed: () {
-                context.read<TodosProvider>().removeTodo(widget.todo);
-                Navigator.of(context).pop();
-              },
+              onPressed: () => context
+                  .read<TodosProvider>()
+                  .removeTodo(context, widget.todo, pop: true),
             )
           ],
         ),

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '/model/todo.dart';
 import '/page/edit_todo_page.dart';
 import '/provider/todos.dart';
-import '/utils.dart';
 
 class TodoWidget extends StatelessWidget {
   final Todo todo;
@@ -13,6 +12,12 @@ class TodoWidget extends StatelessWidget {
     required this.todo,
     super.key,
   });
+
+  void editTodo(BuildContext context, Todo todo) => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => EditTodoPage(todo: todo),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) => ClipRRect(
@@ -35,7 +40,8 @@ class TodoWidget extends StatelessWidget {
             motion: const ScrollMotion(),
             children: [
               SlidableAction(
-                onPressed: (context) => deleteTodo(context, todo),
+                onPressed: (context) =>
+                    context.read<TodosProvider>().removeTodo(context, todo),
                 backgroundColor: const Color(0xFFFE4A49),
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
@@ -58,14 +64,9 @@ class TodoWidget extends StatelessWidget {
                 activeColor: Theme.of(context).primaryColor,
                 checkColor: Colors.white,
                 value: todo.isDone,
-                onChanged: (_) {
-                  final isDone =
-                      context.read<TodosProvider>().toggleTodoStatus(todo);
-                  Utils.showSnackBar(
-                    context,
-                    isDone ? 'Task completed' : 'Task marked incomplete',
-                  );
-                },
+                onChanged: (_) => context
+                    .read<TodosProvider>()
+                    .toggleTodoStatus(context, todo),
               ),
               const SizedBox(width: 20),
               Expanded(
@@ -93,17 +94,6 @@ class TodoWidget extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      );
-
-  void deleteTodo(BuildContext context, Todo todo) {
-    context.read<TodosProvider>().removeTodo(todo);
-    Utils.showSnackBar(context, 'Deleted the task');
-  }
-
-  void editTodo(BuildContext context, Todo todo) => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => EditTodoPage(todo: todo),
         ),
       );
 }
