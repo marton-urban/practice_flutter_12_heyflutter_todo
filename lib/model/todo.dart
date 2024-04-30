@@ -1,7 +1,3 @@
-class TodoField {
-  static const createdTime = 'createdTime';
-}
-
 class Todo {
   DateTime createdTime;
   String title;
